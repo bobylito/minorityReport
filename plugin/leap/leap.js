@@ -56,8 +56,6 @@ var b=right.criteria;if(a!==b){if(a>b||a===void 0)return 1;if(a<b||b===void 0)re
 
       body.appendChild( pointer );
 
-  var autoplay = false;
-
   // Leap's loop
   controller.on( 'frame', function ( frame ) {
     // Timing code to rate limit gesture execution
@@ -105,12 +103,11 @@ var b=right.criteria;if(a!==b){if(a>b||a===void 0)return 1;if(a<b||b===void 0)re
       var left = parseFloat(pointer.style.left);
       var top = parseFloat(pointer.style.top);
 
-      if (size > 150 && autoplay == false)  {
+      if (size > 150)  {
         var fromPoint = document.elementFromPoint(left, top);
 
-        if (fromPoint.tagName == "IFRAME" && fromPoint.src.indexOf("youtube.com/embed") != -1) {
+        if (fromPoint && fromPoint.tagName == "IFRAME" && fromPoint.src.indexOf("youtube.com/embed") != -1 && fromPoint.src.indexOf("autoplay=1") == -1) {
           fromPoint.src += "&autoplay=1";
-          autoplay = true;
         }
       }
     }
